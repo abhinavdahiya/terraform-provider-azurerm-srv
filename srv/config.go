@@ -15,9 +15,9 @@ import (
 	"github.com/hashicorp/go-azure-helpers/authentication"
 )
 
-// ArmClient contains the handles to all the specific Azure Resource Manager
+// armClient contains the handles to all the specific Azure Resource Manager
 // resource classes' respective clients.
-type ArmClient struct {
+type armClient struct {
 	clientID              string
 	tenantID              string
 	subscriptionID        string
@@ -31,15 +31,15 @@ type ArmClient struct {
 }
 
 // getArmClient is a helper method which returns a fully instantiated
-// *ArmClient based on the Config's current settings.
-func getArmClient(c *authentication.Config) (*ArmClient, error) {
+// *armClient based on the Config's current settings.
+func getArmClient(c *authentication.Config) (*armClient, error) {
 	env, err := authentication.DetermineEnvironment(c.Environment)
 	if err != nil {
 		return nil, err
 	}
 
 	// client declarations:
-	client := ArmClient{
+	client := armClient{
 		clientID:              c.ClientID,
 		tenantID:              c.TenantID,
 		subscriptionID:        c.SubscriptionID,
@@ -68,7 +68,7 @@ func getArmClient(c *authentication.Config) (*ArmClient, error) {
 	return &client, nil
 }
 
-func (c *ArmClient) registerDNSClients(endpoint, subscriptionId string, auth autorest.Authorizer) {
+func (c *armClient) registerDNSClients(endpoint, subscriptionId string, auth autorest.Authorizer) {
 	dn := dns.NewRecordSetsClientWithBaseURI(endpoint, subscriptionId)
 	c.configureClient(&dn.Client, auth)
 	c.dnsClient = dn
@@ -78,7 +78,7 @@ func (c *ArmClient) registerDNSClients(endpoint, subscriptionId string, auth aut
 	c.zonesClient = zo
 }
 
-func (c *ArmClient) configureClient(client *autorest.Client, auth autorest.Authorizer) {
+func (c *armClient) configureClient(client *autorest.Client, auth autorest.Authorizer) {
 	client.Authorizer = auth
 	client.Sender = buildSender()
 	client.PollingDuration = 60 * time.Minute
