@@ -1,0 +1,39 @@
+package srv
+
+import (
+	"net/http"
+	"testing"
+
+	"github.com/Azure/go-autorest/autorest"
+)
+
+func Test_responseNotFound_DroppedConnection(t *testing.T) {
+	resp := autorest.Response{}
+	if responseWasNotFound(resp) {
+		t.Fatalf("responseWasNotFound should return `false` for a dropped connection")
+	}
+}
+
+func Test_responseNotFound_StatusCodes(t *testing.T) {
+	testCases := []struct {
+		statusCode     int
+		expectedResult bool
+	}{
+		{http.StatusOK, false},
+		{http.StatusInternalServerError, false},
+		{http.StatusNotFound, true},
+	}
+
+	for _, test := range testCases {
+		resp := autorest.Response{
+			Response: &http.Response{
+				StatusCode: test.statusCode,
+			},
+		}
+		result := responseWasNotFound(resp)
+		if test.expectedResult != result {
+			t.Fatalf("Expected '%+v' for status code '%d' - got '%+v'",
+				test.expectedResult, test.statusCode, result)
+		}
+	}
+}
