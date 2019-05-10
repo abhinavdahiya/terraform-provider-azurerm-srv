@@ -59,7 +59,7 @@ func getArmClient(c *authentication.Config) (*armClient, error) {
 
 	// Resource Manager endpoints
 	endpoint := env.ResourceManagerEndpoint
-	auth, err := c.GetAuthorizationToken(buildSender(), oauthConfig, env.TokenAudience)
+	auth, err := c.GetAuthorizationToken(oauthConfig, env.TokenAudience)
 	if err != nil {
 		return nil, err
 	}
