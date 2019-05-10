@@ -91,7 +91,7 @@ github.com/grpc-ecosystem/grpc-gateway/utilities
 github.com/grpc-ecosystem/grpc-gateway/internal
 # github.com/hashicorp/errwrap v1.0.0
 github.com/hashicorp/errwrap
-# github.com/hashicorp/go-azure-helpers v0.4.1
+# github.com/hashicorp/go-azure-helpers v0.3.2
 github.com/hashicorp/go-azure-helpers/authentication
 # github.com/hashicorp/go-cleanhttp v0.5.0
 github.com/hashicorp/go-cleanhttp
@@ -136,12 +136,12 @@ github.com/hashicorp/hil/parser
 github.com/hashicorp/hil/scanner
 # github.com/hashicorp/terraform v0.11.13
 github.com/hashicorp/terraform/plugin
-github.com/hashicorp/terraform/helper/hashcode
 github.com/hashicorp/terraform/helper/schema
 github.com/hashicorp/terraform/terraform
 github.com/hashicorp/terraform/plugin/discovery
 github.com/hashicorp/terraform/config
 github.com/hashicorp/terraform/config/configschema
+github.com/hashicorp/terraform/helper/hashcode
 github.com/hashicorp/terraform/config/module
 github.com/hashicorp/terraform/dag
 github.com/hashicorp/terraform/flatmap
